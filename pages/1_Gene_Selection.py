@@ -35,11 +35,17 @@ def create_motif_df(df):
     return out_df
 
 
-def callback():
-    st.session_state.button_clicked2 = True
+def callback(type):
+    if type =="button2":
+        st.session_state.button_clicked2 = True
+    else:
+        st.session_state.button_clicked3 = True
 
 if "button_clicked2" not in st.session_state:
     st.session_state.button_clicked2 = False
+
+if "button_clicked3" not in st.session_state:
+    st.session_state.button_clicked3 = False
 
 # CSS to inject contained in a string
 hide_table_row_index = """
@@ -58,7 +64,25 @@ st.markdown("# Gene Selection")
 option = st.radio("Input gene list by either uploading a txt file or typing in the genes:", 
                       options=('Upload file', 'Type in genes'))
 
+st.markdown("Example genes: evm.TU.unitig_128718.1, evm.TU.unitig_163456.1, evm.TU.uti_cns_0024438.2,")
 gene_list = []
+
+if st.button('Use example genes', on_click=callback) or st.session_state.button_clicked3:
+    gene_list = ['evm.TU.unitig_128718.1', 'evm.TU.unitig_163456.1', 'evm.TU.uti_cns_0024438.2',
+                 'evm.TU.uti_cns_0075220.1', 'evm.TU.unitig_262392.1', 'evm.TU.uti_cns_0242215.1',
+                 'evm.TU.unitig_204309.1', 'evm.TU.uti_cns_0254579.1', 'evm.TU.uti_cns_0107326.2',
+                 'evm.TU.uti_cns_0110357.2', 'evm.TU.unitig_261683.1', 'evm.TU.uti_cns_0122229.2']
+    sql_query = pd.read_sql(f"SELECT * FROM tfbs_planttfdb WHERE gene in {gene_list}", conn)
+    motif_df = create_motif_df(sql_query)
+        
+    tsv = convert_df(motif_df)
+    st.sidebar.markdown("**Download output**")
+    st.sidebar.download_button(label="Download data as TSV", data=tsv, mime="text/tsv", file_name="genes_motifs_loc.tsv")
+        
+    st.table(motif_df)
+
+    st.session_state["genes"] = gene_list
+    st.session_state["my_genes_motifs_df"] = motif_df
 
 if option == 'Upload file':
     uploaded_file = st.file_uploader("")
