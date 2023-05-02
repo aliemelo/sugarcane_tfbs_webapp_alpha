@@ -35,17 +35,11 @@ def create_motif_df(df):
     return out_df
 
 
-def callback(type):
-    if type =="button2":
-        st.session_state.button_clicked2 = True
-    else:
-        st.session_state.button_clicked3 = True
+def callback():
+    st.session_state.button_clicked2 = True
 
 if "button_clicked2" not in st.session_state:
     st.session_state.button_clicked2 = False
-
-if "button_clicked3" not in st.session_state:
-    st.session_state.button_clicked3 = False
 
 # CSS to inject contained in a string
 hide_table_row_index = """
@@ -64,7 +58,7 @@ st.markdown("# Gene Selection")
 option = st.radio("Input gene list by either uploading a txt file or typing in the genes:", 
                       options=('Upload file', 'Type in genes'))
 
-st.markdown("Example genes: evm.TU.unitig_128718.1, evm.TU.unitig_163456.1, evm.TU.uti_cns_0024438.2,")
+
 gene_list = []
 
 if st.button('Use example genes', on_click=callback) or st.session_state.button_clicked3:
@@ -77,7 +71,7 @@ if st.button('Use example genes', on_click=callback) or st.session_state.button_
         
     tsv = convert_df(motif_df)
     st.sidebar.markdown("**Download output**")
-    st.sidebar.download_button(label="Download data as TSV", data=tsv, mime="text/tsv", file_name="genes_motifs_loc.tsv", on_click=callback("button3"))
+    st.sidebar.download_button(label="Download data as TSV", data=tsv, mime="text/tsv", file_name="genes_motifs_loc.tsv")
         
     st.table(motif_df)
 
@@ -127,4 +121,4 @@ else:
         st.session_state["my_genes_motifs_df"] = motif_df
 
         st.sidebar.markdown("**Download output**")
-        st.sidebar.download_button(label="Download data as TSV", data=tsv, mime="text/tsv", file_name="genes_motifs_loc.tsv", on_click=callback("button2"))
+        st.sidebar.download_button(label="Download data as TSV", data=tsv, mime="text/tsv", file_name="genes_motifs_loc.tsv", on_click=callback())
