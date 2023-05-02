@@ -72,7 +72,7 @@ ncolslegend = st.sidebar.slider("Number of columns in legend", min_value=1, max_
 
 # Plot figure
 fig = plt.figure(figsize=(20,fig_height))
-gs = gridspec.GridSpec(nrows=1, ncols=3, width_ratios=[1, 1, 1],
+gs = gridspec.GridSpec(nrows=1, ncols=3, width_ratios=[3, 1, 1],
                            wspace=0.0, hspace=0.025, top=0.95, bottom=0.05,
                            left=0.3, right=0.845)
 # Create subplots
