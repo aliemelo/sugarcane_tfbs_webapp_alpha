@@ -76,7 +76,7 @@ if st.button('Use example genes'):
         
     st.table(motif_df)
 
-    st.session_state["genes"] = gene_list
+    st.session_state["genes"] = genes
     st.session_state["my_genes_motifs_df"] = motif_df
 
 if option == 'Upload file':
