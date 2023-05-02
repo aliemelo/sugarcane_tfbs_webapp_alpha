@@ -77,7 +77,7 @@ if st.button('Use example genes', on_click=callback) or st.session_state.button_
         
     tsv = convert_df(motif_df)
     st.sidebar.markdown("**Download output**")
-    st.sidebar.download_button(label="Download data as TSV", data=tsv, mime="text/tsv", file_name="genes_motifs_loc.tsv")
+    st.sidebar.download_button(label="Download data as TSV", data=tsv, mime="text/tsv", file_name="genes_motifs_loc.tsv", on_click=callback("button3"))
         
     st.table(motif_df)
 
@@ -127,4 +127,4 @@ else:
         st.session_state["my_genes_motifs_df"] = motif_df
 
         st.sidebar.markdown("**Download output**")
-        st.sidebar.download_button(label="Download data as TSV", data=tsv, mime="text/tsv", file_name="genes_motifs_loc.tsv", on_click=callback)
+        st.sidebar.download_button(label="Download data as TSV", data=tsv, mime="text/tsv", file_name="genes_motifs_loc.tsv", on_click=callback("button2"))
