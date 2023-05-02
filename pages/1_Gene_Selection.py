@@ -66,7 +66,8 @@ if st.button('Use example genes'):
                  'evm.TU.uti_cns_0075220.1', 'evm.TU.unitig_262392.1', 'evm.TU.uti_cns_0242215.1',
                  'evm.TU.unitig_204309.1', 'evm.TU.uti_cns_0254579.1', 'evm.TU.uti_cns_0107326.2',
                  'evm.TU.uti_cns_0110357.2', 'evm.TU.unitig_261683.1', 'evm.TU.uti_cns_0122229.2']
-    sql_query = pd.read_sql(f"SELECT * FROM tfbs_planttfdb WHERE gene in {gene_list}", conn)
+    genes = tuple(gene_list)
+    sql_query = pd.read_sql(f"SELECT * FROM tfbs_planttfdb WHERE gene in {genes}", conn)
     motif_df = create_motif_df(sql_query)
         
     tsv = convert_df(motif_df)
