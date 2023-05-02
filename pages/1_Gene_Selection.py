@@ -61,7 +61,7 @@ option = st.radio("Input gene list by either uploading a txt file or typing in t
 
 gene_list = []
 
-if st.button('Use example genes', on_click=callback) or st.session_state.button_clicked3:
+if st.button('Use example genes'):
     gene_list = ['evm.TU.unitig_128718.1', 'evm.TU.unitig_163456.1', 'evm.TU.uti_cns_0024438.2',
                  'evm.TU.uti_cns_0075220.1', 'evm.TU.unitig_262392.1', 'evm.TU.uti_cns_0242215.1',
                  'evm.TU.unitig_204309.1', 'evm.TU.uti_cns_0254579.1', 'evm.TU.uti_cns_0107326.2',
